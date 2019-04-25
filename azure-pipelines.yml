@@ -1,0 +1,22 @@
+jobs:
+- job: Build
+  timeoutInMinutes: 65535
+  cancelTimeoutInMinutes: 65535
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  strategy:
+    matrix:
+      freedoom1:
+        LOLBENCH_RUNNER: freedoom1
+      freedoom2:
+        LOLBENCH_RUNNER: freedoom2
+
+  steps:
+  - script: |
+      bash run.sh
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: output
