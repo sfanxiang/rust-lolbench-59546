@@ -1,0 +1,126 @@
+jobs:
+- job: Build
+  timeoutInMinutes: 65535
+  cancelTimeoutInMinutes: 65535
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  strategy:
+    matrix:
+      molly-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: molly
+      molly-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: molly
+
+      molly2-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: molly2
+      molly2-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: molly2
+
+      molly3-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: molly3
+      molly3-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: molly3
+
+      molly4-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: molly4
+      molly4-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: molly4
+
+      sally-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: sally
+      sally-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: sally
+
+      sally2-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: sally2
+      sally2-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: sally2
+
+      sally3-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: sally3
+      sally3-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: sally3
+
+      sally4-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: sally4
+      sally4-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: sally4
+
+      wilhelm-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: wilhelm
+      wilhelm-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: wilhelm
+
+      wilhelm2-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: wilhelm2
+      wilhelm2-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: wilhelm2
+
+      wilhelm3-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: wilhelm3
+      wilhelm3-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: wilhelm3
+
+      wilhelm4-target:
+        TARGET_COMMIT: 88b01308dc0a98d366a63de60d04a7bf00d70226
+        IN_TREE: false
+        LOLBENCH_RUNNER: wilhelm4
+      wilhelm4-base:
+        TARGET_COMMIT: d65e721ef824becd76773368718701cd0db83e59
+        IN_TREE: true
+        LOLBENCH_RUNNER: wilhelm4
+
+  steps:
+  - script: |
+      export REBASE_COMMIT=d65e721ef824becd76773368718701cd0db83e59
+      bash run.sh
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: output
