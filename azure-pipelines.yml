@@ -1,0 +1,82 @@
+jobs:
+- job: Build
+  timeoutInMinutes: 65535
+  cancelTimeoutInMinutes: 65535
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  strategy:
+    matrix:
+      freedoom1:
+        LOLBENCH_RUNNER: freedoom1
+      freedoom2:
+        LOLBENCH_RUNNER: freedoom2
+      brotli_1_1_3_bench_e2e_rt_q9_5_1024k:
+        LOLBENCH_RUNNER: brotli_1_1_3_bench_e2e_rt_q9_5_1024k
+      molly:
+        LOLBENCH_RUNNER: molly
+      molly2:
+        LOLBENCH_RUNNER: molly2
+      molly3:
+        LOLBENCH_RUNNER: molly3
+      molly4:
+        LOLBENCH_RUNNER: molly4
+      molly5:
+        LOLBENCH_RUNNER: molly5
+      molly6:
+        LOLBENCH_RUNNER: molly6
+      molly6-2:
+        LOLBENCH_RUNNER: molly6-2
+      molly6-3:
+        LOLBENCH_RUNNER: molly6-3
+      molly7:
+        LOLBENCH_RUNNER: molly7
+      molly8:
+        LOLBENCH_RUNNER: molly8
+      sally:
+        LOLBENCH_RUNNER: sally
+      sally2:
+        LOLBENCH_RUNNER: sally2
+      sally3:
+        LOLBENCH_RUNNER: sally3
+      sally4:
+        LOLBENCH_RUNNER: sally4
+      sally5:
+        LOLBENCH_RUNNER: sally5
+      sally5-2:
+        LOLBENCH_RUNNER: sally5-2
+      sally6:
+        LOLBENCH_RUNNER: sally6
+      sally6-2:
+        LOLBENCH_RUNNER: sally6-2
+      sally7:
+        LOLBENCH_RUNNER: sally7
+      sally8:
+        LOLBENCH_RUNNER: sally8
+      wilhelm:
+        LOLBENCH_RUNNER: wilhelm
+      wilhelm2:
+        LOLBENCH_RUNNER: wilhelm2
+      wilhelm3:
+        LOLBENCH_RUNNER: wilhelm3
+      wilhelm4:
+        LOLBENCH_RUNNER: wilhelm4
+      wilhelm5:
+        LOLBENCH_RUNNER: wilhelm5
+      wilhelm6:
+        LOLBENCH_RUNNER: wilhelm6
+      wilhelm6-2:
+        LOLBENCH_RUNNER: wilhelm6-2
+      wilhelm7:
+        LOLBENCH_RUNNER: wilhelm7
+      wilhelm8:
+        LOLBENCH_RUNNER: wilhelm8
+
+  steps:
+  - script: |
+      bash run.sh
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: output
