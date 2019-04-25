@@ -1,0 +1,22 @@
+jobs:
+- job: Build
+  timeoutInMinutes: 65535
+  cancelTimeoutInMinutes: 65535
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  strategy:
+    matrix:
+      wilhelm6-2:
+        LOLBENCH_RUNNER: wilhelm6-2
+      wilhelm6-2-2:
+        LOLBENCH_RUNNER: wilhelm6-2-2
+
+  steps:
+  - script: |
+      bash run.sh
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: output
