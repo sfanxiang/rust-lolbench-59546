@@ -29,7 +29,10 @@ cd rust
 git submodule init
 git submodule update src/doc/* src/stdsimd src/tools/*
 git submodule update --depth=1 # Fetching submodules is very slow. This can speed it up.
-git reset --hard $REBASE_COMMIT
+
+git fetch origin $TARGET_COMMIT
+git reset --hard $TARGET_COMMIT
+git rebase $REBASE_COMMIT
 
 echo "[llvm]" >> config.toml
 echo "allow-old-toolchain = true" >> config.toml
@@ -42,15 +45,13 @@ cp build/x86_64-unknown-linux-gnu/stage1-tools-bin/cargo build/x86_64-unknown-li
 
 cd ..
 
-##### Benchmark base commit #####
-BENCHMARK_COMMIT=$REBASE_COMMIT bash bench.sh
+##### Benchmark target commit #####
+BENCHMARK_COMMIT=$TARGET_COMMIT bash bench.sh
 
-##### Switch to target commit #####
+##### Switch to base commit #####
 cd rust
 
-git fetch origin $TARGET_COMMIT
-git reset --hard $TARGET_COMMIT
-git rebase $REBASE_COMMIT
+git reset --hard $REBASE_COMMIT
 
 ./x.py build src/tools/cargo --stage=1
 ./x.py build --stage=1
@@ -58,5 +59,5 @@ cp build/x86_64-unknown-linux-gnu/stage1-tools-bin/cargo build/x86_64-unknown-li
 
 cd ..
 
-##### Benchmark target commit #####
-BENCHMARK_COMMIT=$TARGET_COMMIT bash bench.sh
+##### Benchmark base commit #####
+BENCHMARK_COMMIT=$REBASE_COMMIT bash bench.sh
